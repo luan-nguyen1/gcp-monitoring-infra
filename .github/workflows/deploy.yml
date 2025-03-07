@@ -33,13 +33,13 @@ jobs:
       uses: docker/setup-buildx-action@v3
 
     - name: Configure Docker with Artifact Registry
-      run: gcloud auth configure-docker ${{ vars.REGION }}-docker.pkg.dev --quiet
+      run: gcloud auth configure-docker ${{ env.GAR_LOCATION }}-docker.pkg.dev --quiet
 
     - name: Build and Push Docker image
       run: |
         docker buildx build \
           --platform linux/amd64 \
-          --tag europe-central2-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO }}/monitoring-service:latest \
+          --tag ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.GAR_REPO }}/${{ env.IMAGE }}:latest \
           --push .
 
     - name: Update kubeconfig
