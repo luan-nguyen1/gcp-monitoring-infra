@@ -14,22 +14,45 @@ jobs:
       GOOGLE_REGION: europe-central2
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
+      - name: Install Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: tonal-transit-452819-t1
+          install_components: 'beta'
 
       - name: Authenticate with Google Cloud
         uses: google-github-actions/auth@v2
         with:
           credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
-      - name: Initialize Terraform
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Format Check
+        run: terraform fmt -check -recursive
+        continue-on-error: true  # Won't fail the build if format issues exist
+
+      - name: Cache Terraform Plugins & Modules
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.terraform.d/plugin-cache
+            environments/dev/.terraform
+          key: ${{ runner.os }}-terraform-${{ hashFiles('**/*.tf') }}
+          restore-keys: |
+            ${{ runner.os }}-terraform-
+
+      - name: Initialize Terraform (Dev)
         run: terraform init
+        working-directory: environments/dev
 
-      - name: Terraform Plan
+      - name: Terraform Plan (Dev)
         run: terraform plan
+        working-directory: environments/dev
 
-      - name: Terraform Apply
+      - name: Terraform Apply (Dev)
         run: terraform apply -auto-approve
+        working-directory: environments/dev
