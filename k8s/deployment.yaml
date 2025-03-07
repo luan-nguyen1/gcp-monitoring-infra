@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: monitoring-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: monitoring-service
+  template:
+    metadata:
+      labels:
+        app: monitoring-service
+    spec:
+      containers:
+      - name: monitoring-service
+        image: europe-central2-docker.pkg.dev/tonal-transit-452819-t1/monitoring-repo/monitoring-service:latest
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            cpu: "100m"    # Reduce CPU request
+            memory: "128Mi" # Reduce memory request
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 10
