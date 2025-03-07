@@ -55,7 +55,7 @@ jobs:
         working-directory: environments/dev
 
       - name: Terraform Plan (Dev)
-        run: terraform plan -no-color -var "project_id=${GOOGLE_PROJECT}"
+        run: terraform plan -no-color -var "project_id=${GOOGLE_PROJECT}" -var "ssh_pub_key=${{ secrets.SSH_PUBLIC_KEY }}" -var "ssh_user=your-username"
         working-directory: environments/dev
         timeout-minutes: 10
         env:
