@@ -2,7 +2,6 @@ FROM python:3.9
 
 WORKDIR /app
 
-# Install system dependencies needed to build Python packages
 RUN apt-get update && apt-get install -y \
     gcc \
     python3-dev \
