@@ -3,7 +3,7 @@ resource "google_compute_instance" "vm" {
   machine_type = var.machine_type
   zone         = var.zone
 
-  allow_stopping_for_update = true # ✅ Allow Terraform to stop and restart the VM
+  allow_stopping_for_update = true  
 
   boot_disk {
     initialize_params {
@@ -22,7 +22,7 @@ resource "google_compute_instance" "vm" {
   }
 
   metadata = {
-    ssh-keys = "${var.ssh_user}:${file(var.ssh_pub_key_path)}"
+    ssh-keys = "${var.ssh_user}:${file(var.ssh_pub_key)}"
   }
 
   metadata_startup_script = var.startup_script

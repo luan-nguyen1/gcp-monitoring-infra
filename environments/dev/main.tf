@@ -70,7 +70,7 @@ module "monitoring_vm" {
   zone                   = "${var.region}-a"
   subnet_id              = module.network.subnet_id
   ssh_user               = var.ssh_user
-  ssh_pub_key_path       = var.ssh_pub_key_path
+  ssh_pub_key       = var.ssh_pub_key
   service_account_email  = google_service_account.vm_sa.email
   service_account_scopes = ["cloud-platform"]
 
