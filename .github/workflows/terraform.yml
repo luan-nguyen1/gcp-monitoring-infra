@@ -67,3 +67,6 @@ jobs:
       - name: Terraform Apply (Dev)
         run: terraform apply -auto-approve
         working-directory: environments/dev
+        timeout-minutes: 10
+        env:
+          TF_LOG: DEBUG
