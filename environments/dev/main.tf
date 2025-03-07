@@ -4,6 +4,37 @@ provider "google" {
   region  = var.region
 }
 
+module "apis" {
+  source     = "../../modules/apis"
+  project_id = var.project_id
+}
+
+# Enable required APIs
+resource "google_project_service" "cloud_resource_manager" {
+  project = var.project_id
+  service = "cloudresourcemanager.googleapis.com"
+}
+
+resource "google_project_service" "compute" {
+  project = var.project_id
+  service = "compute.googleapis.com"
+}
+
+resource "google_project_service" "container" {
+  project = var.project_id
+  service = "container.googleapis.com"
+}
+
+resource "google_project_service" "artifact_registry" {
+  project = var.project_id
+  service = "artifactregistry.googleapis.com"
+}
+
+resource "google_project_service" "service_usage" {
+  project = var.project_id
+  service = "serviceusage.googleapis.com"
+}
+
 locals {
   docker_image = "${var.region}-docker.pkg.dev/${var.project_id}/${module.artifact_registry.repo_name}/monitoring-service:latest"
 }
