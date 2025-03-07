@@ -1,19 +1,19 @@
 variable "vpc_name" {
-  description = "Name of the VPC network"
+  description = "The name of the VPC network"
   type        = string
 }
 
 variable "subnet_name" {
-  description = "Name of the subnet"
+  description = "The name of the subnet"
   type        = string
 }
 
 variable "subnet_cidr" {
-  description = "CIDR range for the subnet"
+  description = "The CIDR block for the subnet"
   type        = string
 }
 
 variable "region" {
-  description = "GCP region for the subnet"
+  description = "The GCP region"
   type        = string
 }

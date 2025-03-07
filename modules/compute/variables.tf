@@ -1,61 +1,45 @@
 variable "instance_name" {
-  description = "Name of the VM instance"
-  type        = string
+  type = string
 }
 
 variable "machine_type" {
-  description = "Machine type for the VM"
-  type        = string
-  default     = "e2-micro"
+  type = string
 }
 
 variable "zone" {
-  description = "Zone for the VM"
-  type        = string
-}
-
-variable "image" {
-  description = "Boot disk image"
-  type        = string
-  default     = "debian-cloud/debian-11"
+  type = string
 }
 
 variable "subnet_id" {
-  description = "Subnet ID for the VM"
-  type        = string
+  type = string
 }
 
 variable "ssh_user" {
-  description = "SSH username"
-  type        = string
-  default     = "admin"
+  type = string
 }
 
 variable "ssh_pub_key" {
-  description = "Path to SSH public key"
-  type        = string
-  default     = "~/.ssh/id_rsa.pub"
-}
-
-variable "startup_script" {
-  description = "Startup script for the VM"
-  type        = string
-  default     = ""
-}
-
-variable "tags" {
-  description = "Network tags for the VM"
-  type        = list(string)
-  default     = []
+  type = string
 }
 
 variable "service_account_email" {
-  description = "Email of the service account to attach to the VM"
-  type        = string
+  type = string
 }
 
 variable "service_account_scopes" {
-  description = "Scopes for the attached service account"
-  type        = list(string)
-  default     = ["cloud-platform"]
+  type = list(string)
+}
+
+variable "docker_image" {
+  type = string
+}
+
+variable "tags" {
+  type    = list(string)
+  default = []
+}
+
+variable "project_id" {
+  description = "The GCP project ID"
+  type        = string
 }

@@ -7,7 +7,7 @@ resource "google_compute_instance" "vm" {
 
   boot_disk {
     initialize_params {
-      image = var.image
+      image = "debian-cloud/debian-11"
     }
   }
 
@@ -25,6 +25,5 @@ resource "google_compute_instance" "vm" {
     ssh-keys = "${var.ssh_user}:${var.ssh_pub_key}"
   }
 
-  metadata_startup_script = var.startup_script
-  tags                    = var.tags
+  tags = var.tags
 }
