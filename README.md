@@ -1,4 +1,4 @@
-# Terraform GCP Infrastructure
+# GCP Infrastructure
 
 Infrastructure as Code for Google Cloud Platform using Terraform.
 
