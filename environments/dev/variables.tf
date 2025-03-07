@@ -1,28 +1,33 @@
 variable "project_id" {
-  description = "GCP Project ID"
+  description = "The GCP project ID"
   type        = string
 }
 
 variable "region" {
-  description = "GCP region"
+  description = "The GCP region"
   type        = string
-  default     = "eu-central2"
+  default     = "europe-central2"
+}
+
+variable "grafana_admin_password" {
+  description = "Admin password for Grafana"
+  type        = string
+  sensitive   = true
+}
+
+variable "domain_name" {
+  description = "Domain name for monitoring services"
+  type        = string
+  default     = "monitoring.example.com"
 }
 
 variable "ssh_user" {
-  description = "SSH username"
+  description = "SSH username for VM access"
   type        = string
-  default     = "admin"
+  default     = "luan"
 }
 
 variable "ssh_pub_key" {
-  description = "Path to SSH public key"
+  description = "SSH public key for accessing VM"
   type        = string
-  default     = "~/.ssh/id_rsa.pub"
-}
-
-variable "docker_image" {
-  description = "Docker image for the monitoring service"
-  type        = string
-  default     = ""
 }
