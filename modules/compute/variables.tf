@@ -31,7 +31,7 @@ variable "ssh_user" {
   default     = "admin"
 }
 
-variable "ssh_pub_key_path" {
+variable "ssh_pub_key" {
   description = "Path to SSH public key"
   type        = string
   default     = "~/.ssh/id_rsa.pub"
