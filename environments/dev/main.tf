@@ -46,10 +46,10 @@ resource "google_project_iam_member" "editor" {
 
 # ✅ Define the Artifact Registry Repo
 resource "google_artifact_registry_repository" "monitoring_repo" {
-  location       = "europe-central2"
-  repository_id  = "monitoring-repo"
-  format         = "DOCKER"
-  description    = "Docker repository for monitoring service"
+  location      = "europe-central2"
+  repository_id = "monitoring-repo"
+  format        = "DOCKER"
+  description   = "Docker repository for monitoring service"
 }
 
 # ✅ Create the VPC Network
@@ -71,7 +71,7 @@ module "monitoring_vm" {
   subnet_id              = module.network.subnet_id
   ssh_user               = var.ssh_user
   ssh_pub_key_path       = var.ssh_pub_key_path
-  service_account_email  = google_service_account.vm_sa.email 
+  service_account_email  = google_service_account.vm_sa.email
   service_account_scopes = ["cloud-platform"]
 
   startup_script = <<-EOF
@@ -89,17 +89,17 @@ module "monitoring_vm" {
 }
 
 resource "google_container_cluster" "primary" {
-  name                     = "dev-monitoring-cluster"
-  location                 = "europe-central2-a"  # ⬅️ Change from region to specific ZONE
+  name     = "dev-monitoring-cluster"
+  location = "europe-central2-a" # ⬅️ Change from region to specific ZONE
 
   remove_default_node_pool = true
   initial_node_count       = 1
   deletion_protection      = false
 
   node_config {
-    machine_type  = "e2-small"
-    disk_size_gb  = 50  # ⬅️ Safe within quota
-    oauth_scopes  = ["https://www.googleapis.com/auth/cloud-platform"]
+    machine_type = "e2-small"
+    disk_size_gb = 50 # ⬅️ Safe within quota
+    oauth_scopes = ["https://www.googleapis.com/auth/cloud-platform"]
   }
 }
 
@@ -113,7 +113,7 @@ resource "google_container_node_pool" "primary_nodes" {
 
   node_config {
     machine_type = "e2-small"
-    disk_size_gb = 50  # total 100 GB, very safe
+    disk_size_gb = 50 # total 100 GB, very safe
     oauth_scopes = ["https://www.googleapis.com/auth/cloud-platform"]
   }
 }

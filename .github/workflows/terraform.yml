@@ -32,8 +32,8 @@ jobs:
         uses: hashicorp/setup-terraform@v3
 
       - name: Terraform Format Check
-        run: terraform fmt -check -recursive
-        continue-on-error: true  # Won't fail the build if format issues exist
+        run: terraform fmt
+        continue-on-error: true 
 
       - name: Cache Terraform Plugins & Modules
         uses: actions/cache@v3

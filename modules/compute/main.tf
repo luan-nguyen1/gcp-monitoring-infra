@@ -3,7 +3,7 @@ resource "google_compute_instance" "vm" {
   machine_type = var.machine_type
   zone         = var.zone
 
-  allow_stopping_for_update = true  # ✅ Allow Terraform to stop and restart the VM
+  allow_stopping_for_update = true # ✅ Allow Terraform to stop and restart the VM
 
   boot_disk {
     initialize_params {
