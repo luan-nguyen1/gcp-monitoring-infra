@@ -55,7 +55,7 @@ jobs:
         working-directory: environments/dev
 
       - name: Terraform Plan (Dev)
-        run: terraform plan -no-color
+        run: terraform plan -no-color -var "project_id=${GOOGLE_PROJECT}"
         working-directory: environments/dev
         timeout-minutes: 10
         env:
