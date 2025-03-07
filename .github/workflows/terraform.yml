@@ -28,8 +28,13 @@ jobs:
         with:
           credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
+      - name: Verify GCP Authentication
+        run: gcloud auth list
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.6.6  # Match your local version
 
       - name: Terraform Format Check
         run: terraform fmt
@@ -50,8 +55,14 @@ jobs:
         working-directory: environments/dev
 
       - name: Terraform Plan (Dev)
-        run: terraform plan
+        run: terraform plan -no-color
         working-directory: environments/dev
+        timeout-minutes: 10
+        env:
+          TF_LOG: DEBUG
+
+      - name: Check Runner Resources
+        run: free -m && df -h
 
       - name: Terraform Apply (Dev)
         run: terraform apply -auto-approve
