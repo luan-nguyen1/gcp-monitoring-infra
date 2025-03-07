@@ -40,18 +40,8 @@ jobs:
         run: terraform fmt
         continue-on-error: true 
 
-      - name: Cache Terraform Plugins & Modules
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.terraform.d/plugin-cache
-            environments/dev/.terraform
-          key: ${{ runner.os }}-terraform-${{ hashFiles('**/*.tf') }}
-          restore-keys: |
-            ${{ runner.os }}-terraform-
-
       - name: Initialize Terraform (Dev)
-        run: terraform init -upgrade -reconfigure
+        run: terraform init -upgrade
         working-directory: environments/dev
         env:
           TF_LOG: DEBUG
