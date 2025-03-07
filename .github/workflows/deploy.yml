@@ -26,8 +26,7 @@ jobs:
     - name: Google Auth
       uses: google-github-actions/auth@v2
       with:
-        workload_identity_provider: ${{ secrets.GCP_WIP }}
-        service_account: ${{ secrets.GCP_SA }}
+        credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
     - name: Set up Docker
       uses: docker/setup-buildx-action@v3
